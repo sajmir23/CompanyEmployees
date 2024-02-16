@@ -22,7 +22,7 @@ builder.Services.AddControllers();
 
 builder.Services.ConfigureCors();
 builder.Services.ConfigureIISIntegration();
-
+builder.Services.ConfigureRepositoryManager();
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
