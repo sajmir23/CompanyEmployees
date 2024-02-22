@@ -18,11 +18,14 @@ builder.Services.ConfigureLoggerService();
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+.AddApplicationPart(typeof(CompanyEmployees.Presentation.AssemblyReference).Assembly);
 
-builder.Services.ConfigureCors();
-builder.Services.ConfigureIISIntegration();
 builder.Services.ConfigureRepositoryManager();
+builder.Services.ConfigureServiceManager();
+builder.Services.ConfigureSqlContext(builder.Configuration);
+
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -46,5 +49,8 @@ app.UseCors("CorsPolicy");
 app.UseAuthorization();
 
 app.MapControllers();
+//app.MapControllerRoute(
+//    name: "default",
+//    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

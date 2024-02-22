@@ -1,5 +1,5 @@
-﻿using Service.Contracts;
-using Contracts;
+﻿using Contracts;
+using Service.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
