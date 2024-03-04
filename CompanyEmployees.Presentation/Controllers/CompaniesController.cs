@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Service.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +8,18 @@ using System.Threading.Tasks;
 
 namespace CompanyEmployees.Presentation.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/companies")]
     [ApiController]
     public class CompaniesController : ControllerBase
     {
+        private readonly IServiceManager _service;
+        public CompaniesController(IServiceManager services) => _service = services;
+
+        [HttpGet]
+        public IActionResult GetCompanies()
+        {
+            var companies = _service.CompanyService.GetAllCompanies(trackChanges: false);
+            return Ok(companies);
+        }
     }
 }
