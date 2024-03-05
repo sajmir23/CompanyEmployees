@@ -11,6 +11,7 @@ namespace Contracts
         ICompanyRepository Company { get; }
         IEmployeeRepository Employee { get; }
         IBookRepository Book { get; }
+        IApartmentRepository Apartment { get; }
         IUserRepository User { get; }
         void Save();
     }
