@@ -21,6 +21,8 @@ namespace Repository
             .OrderBy(c => c.Name)
             .ToList();
 
+        public void CreateCompany(Company company) => Create(company);
+        
     }
  
 }
