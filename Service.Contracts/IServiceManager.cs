@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entities.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,5 +13,9 @@ namespace Service.Contracts
 
         IEmployeeService EmployeeService { get; }
 
+        IReviewService ReviewService { get; }
+
+        IEnumerable<Review> GetAllReviews();
+        void AddReview(Review review);
     }
 }

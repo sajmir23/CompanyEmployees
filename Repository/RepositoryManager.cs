@@ -15,6 +15,7 @@ namespace Repository
         private readonly Lazy<IBookRepository> _bookRepository;
         private readonly Lazy<IUserRepository> _userRepository;
         private readonly Lazy<IApartmentRepository> _apartmentRepository;
+        private readonly Lazy<IReviewRepository> _reviewRepository;
 
         public RepositoryManager(RepositoryContext repositoryContext)
         {
@@ -29,14 +30,16 @@ namespace Repository
             UserRepository(repositoryContext));
             _apartmentRepository = new Lazy<IApartmentRepository>(() => new
             AparmentRepository(repositoryContext));
+            _reviewRepository = new Lazy<IReviewRepository>(() => new
+            ReviewRepository(repositoryContext));
         }
         public ICompanyRepository Company => _companyRepository.Value;
         public IEmployeeRepository Employee => _employeeRepository.Value;
         public IBookRepository Book => _bookRepository.Value;
         public IUserRepository User => _userRepository.Value;
         public IApartmentRepository Apartment => (IApartmentRepository)_apartmentRepository.Value;
+        public IReviewRepository Review => _reviewRepository.Value;
 
-     
         public void Save() => _repositoryContext.SaveChanges();
     }
 }

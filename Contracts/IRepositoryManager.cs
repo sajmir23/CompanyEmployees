@@ -13,6 +13,7 @@ namespace Contracts
         IBookRepository Book { get; }
         IApartmentRepository Apartment { get; }
         IUserRepository User { get; }
+        IReviewRepository Review { get; }
         void Save();
     }
 }

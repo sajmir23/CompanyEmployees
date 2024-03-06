@@ -14,6 +14,7 @@ namespace Service
     {
         private readonly Lazy<ICompanyService> _companyService;
         private readonly Lazy<IEmployeeService> _employeeService;
+        private readonly Lazy<IReviewService> _reviewService;
 
         public ServiceManager(IRepositoryManager repositoryManager, ILoggerManager logger, IMapper mapper)
         {
@@ -21,10 +22,13 @@ namespace Service
           CompanyService(repositoryManager, logger, mapper));
             _employeeService = new Lazy<IEmployeeService>(() => new
           EmployeeService(repositoryManager, logger, mapper));
+            _reviewService = new Lazy<IReviewService>(() => new
+         ReviewService(repositoryManager, logger, mapper));
         }
 
         public ICompanyService CompanyService => _companyService.Value;
         public IEmployeeService EmployeeService => _employeeService.Value;
+        public IReviewService ReviewService => _reviewService.Value;
     }
 
     

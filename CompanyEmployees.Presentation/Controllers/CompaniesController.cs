@@ -15,6 +15,7 @@ namespace CompanyEmployees.Presentation.Controllers
     {
         private readonly IServiceManager _service;
         public CompaniesController(IServiceManager services) => _service = services;
+      
 
         [HttpGet]
         public IActionResult GetCompanies()
