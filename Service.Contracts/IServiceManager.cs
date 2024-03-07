@@ -15,7 +15,5 @@ namespace Service.Contracts
 
         IReviewService ReviewService { get; }
 
-        IEnumerable<Review> GetAllReviews();
-        void AddReview(Review review);
     }
 }

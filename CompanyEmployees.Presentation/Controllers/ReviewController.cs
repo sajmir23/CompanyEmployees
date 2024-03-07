@@ -1,6 +1,7 @@
 ﻿using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 using Service.Contracts;
+using Shared.DataTransferObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,22 +17,21 @@ namespace CompanyEmployees.Presentation.Controllers
     public class ReviewController : ControllerBase
     {
         private readonly IServiceManager _service;
-        private List<Review> reviews;
-
         public ReviewController(IServiceManager services) => _service = services;
 
         [HttpGet]
-        public IEnumerable<Review> Get()
+        public IActionResult Get()
         {
-            return _service.GetAllReviews();
+            var services = _service.ReviewService.GetAllReviews();
+            return Ok(services);
         }
 
 
         [HttpPost]
-        public IActionResult Post([FromBody] Review review)
+        public IActionResult Post([FromBody] ReviewDto review)
         {
-            _service.AddReview(review);
-            return CreatedAtAction(nameof(Get), new { id = review.Id }, review);
+            var created = _service.ReviewService.AddReview(review);
+            return Ok(created);
         }
 
     }

@@ -1,11 +1,14 @@
 ﻿using AutoMapper;
 using Contracts;
+using Entities.Models;
 using Service.Contracts;
+using Shared.DataTransferObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Service
 {
@@ -20,6 +23,23 @@ namespace Service
             _loggerManager = logger;
             _repositoryManager = repository;
             _mapper = mapper;
+        }
+
+        public IEnumerable<Review> GetAllReviews()
+        {
+            var reviews = _repositoryManager.Review.GetAllReviews(false);
+
+            return reviews;
+        }
+
+        public bool AddReview (ReviewDto reviewDto)
+        {
+
+            var reviewEntity = _mapper.Map<Review>(reviewDto);
+            _repositoryManager.Review.CreateReview(reviewEntity);
+            _repositoryManager.Save();
+
+            return true;
         }
     }
 }
