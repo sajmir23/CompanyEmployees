@@ -15,5 +15,7 @@ namespace Service.Contracts
 
         IReviewService ReviewService { get; }
 
+        IHouseService HouseService { get; }
+
     }
 }

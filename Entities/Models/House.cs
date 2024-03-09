@@ -6,15 +6,11 @@ using System.Threading.Tasks;
 
 namespace Entities.Models
 {
-    public class Book
+    public class House
     {
-
         public int Id { get; set; }
-
-        public string Name { get; set; }
-
-        public string Author { get; set; }
-
-        public decimal Price { get; set; }  
+        public string Placed {  get; set; }
+        public int Neighborhood {  get; set; }
+        public int NumofRooms {  get; set; }
     }
 }

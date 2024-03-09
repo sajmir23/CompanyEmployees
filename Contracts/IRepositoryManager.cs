@@ -14,6 +14,7 @@ namespace Contracts
         IApartmentRepository Apartment { get; }
         IUserRepository User { get; }
         IReviewRepository Review { get; }
+        IHouseRepository House { get; }
         void Save();
     }
 }

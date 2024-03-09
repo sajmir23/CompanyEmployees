@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CompanyEmployees.Presentation.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/review")]
     [ApiController]
 
     
@@ -30,8 +30,8 @@ namespace CompanyEmployees.Presentation.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] ReviewDto review)
         {
-            var created = _service.ReviewService.AddReview(review);
-            return Ok(created);
+            var createdCompany = _service.ReviewService.AddReview(review);
+            return Ok(createdCompany);
         }
 
     }

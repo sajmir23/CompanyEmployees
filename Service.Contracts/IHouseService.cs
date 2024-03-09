@@ -8,11 +8,10 @@ using System.Threading.Tasks;
 
 namespace Service.Contracts
 {
-    public interface IReviewService
+    public interface IHouseService
     {
-        public IEnumerable<Review> GetAllReviews();
+        public IEnumerable<HouseDto> GetAllHouse(bool trackChanges);
 
-        public Review AddReview(ReviewDto reviewDto);
-
+        public House AddHouse(HouseDto houseDto);
     }
 }

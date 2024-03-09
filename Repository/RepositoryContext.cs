@@ -20,7 +20,13 @@ namespace Repository
         }
 
        public DbSet<Company>? Companies { get; set; }
-      public DbSet<Employee>? Employees { get; set; }
+
+       public DbSet<Employee>? Employees { get; set; }
+
+        public DbSet<Review>? Review { get; set; }
+
+        public DbSet<House>? House { get; set; }
+
     }
 }
 

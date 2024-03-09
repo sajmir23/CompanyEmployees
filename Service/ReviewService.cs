@@ -32,14 +32,14 @@ namespace Service
             return reviews;
         }
 
-        public bool AddReview (ReviewDto reviewDto)
+        public Review AddReview (ReviewDto reviewDto)
         {
 
             var reviewEntity = _mapper.Map<Review>(reviewDto);
             _repositoryManager.Review.CreateReview(reviewEntity);
             _repositoryManager.Save();
 
-            return true;
+            return reviewEntity;
         }
     }
 }
