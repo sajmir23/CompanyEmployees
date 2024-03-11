@@ -32,27 +32,24 @@ namespace Service
                 var companiesDto = _mapper.Map<IEnumerable<CompanyDto>>(companies);
                 return companiesDto;
         }
-        public CompanyDto GetCompany(Guid id, bool trackChanges)
+        public CompanyDto GetCompany(Guid companyId, bool trackChanges)
         {
-            var company = _repository.Company.GetCompany(id, trackChanges);
-            if (company is null)
+            var company=_repository.Company.GetCompany(companyId, trackChanges);
+            if(company is null)
             {
-                throw new CompanyNotFoundException(id);
+                throw new CompanyNotFoundException(companyId);
             }
-            var companyDto = _mapper.Map<CompanyDto>(company);
+            var companyDto=_mapper.Map<CompanyDto>(company);
             return companyDto;
+
+
         }
+
         public CompanyDto CreateCompany(CompanyForCreationDto company) 
         {
             var companyEntity = _mapper.Map<Company>(company);
             _repository.Company.CreateCompany(companyEntity);
-
-            //var employees = _repository.Employee.GetEmployees(companyEntity.Id, false);
-            //companyEntity.Employees = employees.ToList();
-
-
             var companyToReturn = _mapper.Map<CompanyDto>(companyEntity);
-
 
             return companyToReturn;
         }
@@ -94,6 +91,19 @@ namespace Service
                 throw new CompanyNotFoundException(companyId);
             }
             _repository.Company.DeleteCompany(company);
+            _repository.Save();
+        }
+        public void UpdateCompany(Guid companyId,CompanyForUpdateDto companyForUpdateDto,bool trackChanges)
+        {
+
+            var company = _repository.Company.GetCompany(companyId,trackChanges);
+            if(company is null)
+            {
+                throw new CompanyNotFoundException(companyId);
+
+            }
+
+            _mapper.Map(companyForUpdateDto, company);
             _repository.Save();
         }
     }

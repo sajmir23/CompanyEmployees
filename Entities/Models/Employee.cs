@@ -24,8 +24,8 @@ namespace Entities.Models
         public string? Position { get; set; }
 
 
-        [ForeignKey(nameof(Company))]
-        public Guid CompanyId { get; set; }
+        [ForeignKey(nameof(Company))]  //ketu behet lidhja ne nivel databaze midis kompanise dhe punonjesit dhe percakton qe companiId do t ejet celsi i jashtem qe do te behet lidhja ndermjet klasave
+        public Guid CompanyId { get; set; }   //CompanyId quhet celsi i jashtem per te lidh klasen company me employee
         public Company? Company { get; set; }
     }
 }

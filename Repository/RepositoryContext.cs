@@ -27,6 +27,8 @@ namespace Repository
 
         public DbSet<House>? House { get; set; }
 
+        public DbSet<Car>? Cars { get; set; }   
+
     }
 }
 

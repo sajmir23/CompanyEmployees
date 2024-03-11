@@ -15,4 +15,5 @@ namespace Shared.DataTransferObjects
         public string? FullAddress { get; init; }
     }
     public record CompanyForCreationDto(string Name,string Address,string Country,IEnumerable<EmployeeForCreation> Employees);
+    public record CompanyForUpdateDto(string Name, string Address, string Country,IEnumerable<EmployeeForCreation> Employees);
 }

@@ -37,7 +37,7 @@ namespace Service
             var houseEntity = _mapper.Map<House>(houseDto);
             _repositoryManager.House.CreateHouse(houseEntity);
             _repositoryManager.Save();
-
+            var house =_mapper.Map<HouseDto>(houseEntity);
             return houseEntity;
         }
 

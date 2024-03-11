@@ -25,6 +25,7 @@ namespace Service
             _repositoryManager = repository;
             _mapper = mapper;
         }
+        
         public IEnumerable<EmployeeDto> GetEmployees(Guid companyId, bool trackChanges)
         {
             var company = _repositoryManager.Company.GetCompany(companyId, trackChanges);
@@ -41,6 +42,7 @@ namespace Service
             return employeesDto;
 
         }
+        
         public EmployeeDto GetEmployee(Guid companyId, Guid id, bool trackChanges)
         {
             var company = _repositoryManager.Company.GetCompany(companyId, trackChanges);
@@ -54,6 +56,8 @@ namespace Service
             var employee = _mapper.Map<EmployeeDto>(employeeDb);
             return employee;
         }
+
+
          public EmployeeDto CreateEmployeeForCompany(Guid companyId, EmployeeForCreation employeeForCreation, bool trackChanges)
          {
             var company = _repositoryManager.Company.GetCompany(companyId, trackChanges);
@@ -71,10 +75,11 @@ namespace Service
             return employeeToReturn;
 
          }
+
         public void DeleteEmployeeForCompany(Guid companyId, Guid id, bool trackChanges)
         {
 
-            var company = _repositoryManager.Company.GetCompany(companyId, trackChanges);
+            var company = _repositoryManager.Company.GetCompany(companyId,trackChanges);
             if(company is null)
             { 
                 throw new CompanyNotFoundException(companyId);
@@ -96,8 +101,10 @@ namespace Service
             var employeeEntity = _repositoryManager.Employee.GetEmployee(companyId, id, empTrackChanges);
             if (employeeEntity is null)
                 throw new EmployeeNotFoundException(id);
+
             _mapper.Map(employeeForUpdate, employeeEntity);
             _repositoryManager.Save();
         }
+       
     }
 }
