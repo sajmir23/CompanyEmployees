@@ -93,6 +93,7 @@ namespace Service
             _repository.Company.DeleteCompany(company);
             _repository.Save();
         }
+
         public void UpdateCompany(Guid companyId,CompanyForUpdateDto companyForUpdateDto,bool trackChanges)
         {
 

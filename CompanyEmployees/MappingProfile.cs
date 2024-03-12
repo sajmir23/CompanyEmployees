@@ -16,9 +16,12 @@ namespace CompanyEmployees
             CreateMap<ReviewDto, Review>();
             CreateMap<EmployeeForCreation, Employee>();
             CreateMap<HouseDto, House>();
-            CreateMap<EmployeeForUpdateDto, Employee>();
+            CreateMap<EmployeeForUpdateDto, Employee>().ReverseMap();
             CreateMap<CompanyForUpdateDto,Company>();
-            CreateMap<CreateCarDto,Car>();
+
+           CreateMap<CreateCarDto,Car>();
+           CreateMap<CarDto, Car>().ReverseMap();
+
         }
     }
 }

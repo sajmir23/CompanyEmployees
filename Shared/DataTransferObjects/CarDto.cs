@@ -15,6 +15,7 @@ namespace Shared.DataTransferObjects
         public string? Modeli { get; set; }
         public int? VitProdhim { get; set; }
     }
+
     public record class CreateCarDto
     {
         public string? Modeli { get; set; }

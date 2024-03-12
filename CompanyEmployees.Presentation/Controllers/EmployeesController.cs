@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Mvc;
 using Service.Contracts;
 using Shared.DataTransferObjects;
 using System;
@@ -6,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace CompanyEmployees.Presentation.Controllers
 {
@@ -43,6 +45,9 @@ namespace CompanyEmployees.Presentation.Controllers
             if (employee is null)
                 return BadRequest("EmployeeForCreationDto object is null");
 
+            if (!ModelState.IsValid)
+                return UnprocessableEntity(ModelState);
+
             var employeeToReturn = _serviceManager.EmployeeService.CreateEmployeeForCompany(companyId, employee, false);
             return CreatedAtRoute("GetEmployeeForCompany", new
             {
@@ -59,24 +64,35 @@ namespace CompanyEmployees.Presentation.Controllers
             false);
             return NoContent();
         }
+
         [HttpPut("{id:guid}")]
         public IActionResult UpdateEmployeeForCompany(Guid companyId, Guid id,[FromBody] EmployeeForUpdateDto employee)
         {
             if (employee is null)
                 return BadRequest("EmployeeForUpdateDto object is null");
+
+            if (!ModelState.IsValid)
+                return UnprocessableEntity(ModelState);
+
             _serviceManager.EmployeeService.UpdateEmployeeForCompany(companyId, id, employee,
             compTrackChanges: false, empTrackChanges: true);
             return NoContent();
         }
+     
 
-        [HttpPut("{id:guid}")]
-        public IActionResult UpdateCompany(Guid id, [FromBody] CompanyForUpdateDto company)
+  
+        [HttpPatch("{id:guid}")]
+        public IActionResult PartiallyUpdateEmployeeForCompany(Guid companyId, Guid id,[FromBody] JsonPatchDocument<EmployeeForUpdateDto> patchDoc)
         {
-            if (company is null)
-                return BadRequest("CompanyForUpdateDto object is null");
+            if (patchDoc is null)
+                return BadRequest("patchDoc object sent from client is null.");
 
-            _serviceManager.CompanyService.UpdateCompany(id, company, trackChanges: true);
-
+            var result = _serviceManager.EmployeeService.GetEmployeeForPatch(companyId, id,
+            compTrackChanges: false,
+            empTrackChanges: true);
+            patchDoc.ApplyTo(result.employeeToPatch);
+            _serviceManager.EmployeeService.SaveChangesForPatch(result.employeeToPatch,
+            result.employeeEntity);
             return NoContent();
         }
     }
