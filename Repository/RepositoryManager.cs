@@ -1,4 +1,5 @@
 ﻿using Contracts;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace Repository
     {
         private readonly RepositoryContext _repositoryContext;
         private readonly Lazy<ICompanyRepository> _companyRepository;
-        private readonly Lazy<IEmployeeRepository> _employeeRepository;
+        private Lazy<IEmployeeRepository> _employeeRepository;
         private readonly Lazy<IBookRepository> _bookRepository;
         private readonly Lazy<IUserRepository> _userRepository;
         private readonly Lazy<IApartmentRepository> _apartmentRepository;
@@ -41,14 +42,21 @@ namespace Repository
             CarRepository(repositoryContext));
         }
         public ICompanyRepository Company => _companyRepository.Value;
-        public IEmployeeRepository Employee => _employeeRepository.Value;
+        public IEmployeeRepository Employee
+        {
+            get
+            {
+                _employeeRepository ??= new Lazy<IEmployeeRepository>();
+                return _employeeRepository.Value;
+            }
+        }
         public IBookRepository Book => _bookRepository.Value;
         public IUserRepository User => _userRepository.Value;
         public IApartmentRepository Apartment => (IApartmentRepository)_apartmentRepository.Value;
         public IReviewRepository Review => _reviewRepository.Value;
         public IHouseRepository House => _houseRepository.Value;
         public ICarRepository Car => _carRepository.Value;
-        
+
 
         public void Save() => _repositoryContext.SaveChanges();
     }

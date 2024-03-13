@@ -19,6 +19,7 @@ namespace Shared.DataTransferObjects
     public record class CreateCarDto
     {
         public string? Modeli { get; set; }
+        public string? Pershkrimi { get; set; }
         public int? VitProdhim { get; set; }
 
     }

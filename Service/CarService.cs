@@ -35,6 +35,7 @@ namespace Service
         {
             var carcreated = _mapper.Map<Car>(car);
             _repository.Car.CreateCar(carcreated);
+            _repository.Save();
             var carEntity = _mapper.Map<CarDto>(carcreated);
 
             return carEntity;

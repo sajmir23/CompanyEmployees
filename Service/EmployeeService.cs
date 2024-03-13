@@ -128,6 +128,14 @@ namespace Service
              _repositoryManager.Save();
         }
 
-     
+        public Task DeleteEmployeeForCompanyAsync(Guid companyId, Guid id, bool trackChanges)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UpdateEmployeeForCompanyAsync(Guid companyId, Guid id, EmployeeForUpdateDto employeeForUpdate, bool compTrackChanges, bool empTrackChanges)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

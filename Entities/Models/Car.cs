@@ -15,7 +15,7 @@ namespace Entities.Models
         public string Modeli { get; set; }
 
         [Required(ErrorMessage ="Fusha e kerkuar eshte e detyrueshme")]
-        [MaxLength(100, ErrorMessage = "Fusha e kerkuar duhet te jete 120 karaktere")]
+        [MaxLength(100, ErrorMessage = "Fusha e kerkuar duhet te jete 100 karaktere.")]
         public string Pershkrimi { get; set; }
 
         public int VitProdhim { get; set; }
