@@ -27,16 +27,17 @@ namespace Shared.DataTransferObjects
 
     public record EmployeeForUpdateDto : EmployeeForManipulationDto
     {
-        [Required(ErrorMessage ="Name is a required field.")]
-        [MaxLength(30,ErrorMessage ="Max length is 30 characters.")]
-        public string? Name {  get; init; }
+        [Required(ErrorMessage="Name is a required field.")]
+        [MaxLength(30,ErrorMessage ="shouldn't be lower than 30")]
+        public string? Name { get; set;}
 
-        [Required(ErrorMessage="Age is a required field.")]
-        [Range(18,int.MaxValue,ErrorMessage="Age must'n be lower than 18.")]
-        public int? Age { get; init; }
+        [Required(ErrorMessage ="Age is a required field.")]
+        [Range(18,int.MaxValue,ErrorMessage="shouldn't be lower than 18")]
+        public int? Age {  get; set; }
 
-        [Required(ErrorMessage ="Position is a required field")]
-        [MaxLength(20,ErrorMessage ="Position must'n be lower than 20.")]
-        public string? Position { get; init; }
+        [Required(ErrorMessage ="Position is a required field.")]
+        [MaxLength(20,ErrorMessage="shouldn't be less than 20")]
+        public string? Position { get; set;}    
+
     }
 }

@@ -11,5 +11,7 @@ namespace Contracts
     {
         IEnumerable<Car> GetAllCars(bool trackChanges);
         void CreateCar(Car car);
+        //void UpdateCar(Car car);
+        //void DeleteCar(Car car);    
     }
 }
