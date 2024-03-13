@@ -26,16 +26,16 @@ namespace Service
             _mapper = mapper;
         }
         
-        public IEnumerable<EmployeeDto> GetEmployees(Guid companyId, bool trackChanges)
+        public async Task<IEnumerable<EmployeeDto>> GetEmployeesAsync(Guid companyId, bool trackChanges)
         {
-            var company = _repositoryManager.Company.GetCompany(companyId, trackChanges);
+            var company = await _repositoryManager.Company.GetCompanyAsync(companyId, trackChanges);
 
             if (company is null)
             {
                 throw new CompanyNotFoundException(companyId); 
             }
 
-            var employees = _repositoryManager.Employee.GetEmployees(companyId, trackChanges);
+            var employees = await _repositoryManager.Employee.GetEmployeesAsync(companyId, trackChanges);
 
             var employeesDto = _mapper.Map<IEnumerable<EmployeeDto>>(employees);
 
@@ -43,13 +43,13 @@ namespace Service
 
         }
         
-        public EmployeeDto GetEmployee(Guid companyId, Guid id, bool trackChanges)
+        public async Task<EmployeeDto> GetEmployeeAsync(Guid companyId, Guid id, bool trackChanges)
         {
-            var company = _repositoryManager.Company.GetCompany(companyId, trackChanges);
+            var company =await  _repositoryManager.Company.GetCompanyAsync(companyId, trackChanges);
             if (company is null)
                 throw new CompanyNotFoundException(companyId);
 
-            var employeeDb = _repositoryManager.Employee.GetEmployee(companyId, id, trackChanges);
+            var employeeDb = await _repositoryManager.Employee.GetEmployeeAsync(companyId, id, trackChanges);
             if (employeeDb is null)
                 throw new EmployeeNotFoundException(id);
 
@@ -58,16 +58,17 @@ namespace Service
         }
 
 
-         public EmployeeDto CreateEmployeeForCompany(Guid companyId, EmployeeForCreation employeeForCreation, bool trackChanges)
+         public async Task<EmployeeDto> CreateEmployeeForCompanyAsync(Guid companyId, EmployeeForCreation employeeForCreation, bool trackChanges)
          {
-            var company = _repositoryManager.Company.GetCompany(companyId, trackChanges);
+            var company = await _repositoryManager.Company.GetCompanyAsync(companyId, trackChanges);
             if (company is null)
                 throw new CompanyNotFoundException(companyId);
 
             var employeeEntity = _mapper.Map<Employee>(employeeForCreation);
 
             _repositoryManager.Employee.CreateEmployeeForCompany(companyId,employeeEntity);
-            _repositoryManager.Save();
+
+            await _repositoryManager.SaveAsync();
 
 
             var employeeToReturn = _mapper.Map<EmployeeDto>(employeeEntity);
@@ -76,43 +77,42 @@ namespace Service
 
          }
 
-        public void DeleteEmployeeForCompany(Guid companyId, Guid id, bool trackChanges)
+        public async Task DeleteCompanyAsync(Guid companyId, Guid id, bool trackChanges)
         {
-
-            var company = _repositoryManager.Company.GetCompany(companyId,trackChanges);
+            var company = await _repositoryManager.Company.GetCompanyAsync(companyId,trackChanges);
             if(company is null)
             { 
                 throw new CompanyNotFoundException(companyId);
             }
-            var employeeForCompany = _repositoryManager.Employee.GetEmployee(companyId, id, trackChanges);
+            var employeeForCompany = await _repositoryManager.Employee.GetEmployeeAsync(companyId, id, trackChanges);
             if(employeeForCompany is null)
             {
                 throw new EmployeeNotFoundException(id);
             }
             _repositoryManager.Employee.DeleteEmployee(employeeForCompany);
-            _repositoryManager.Save();
+            await _repositoryManager.SaveAsync();
         }
 
-        public void UpdateEmployeeForCompany(Guid companyId, Guid id, EmployeeForUpdateDto employeeForUpdate,bool compTrackChanges, bool empTrackChanges)
+        public async Task UpdateEmployeeForCompany(Guid companyId, Guid id, EmployeeForUpdateDto employeeForUpdate,bool compTrackChanges, bool empTrackChanges)
         {
-            var company = _repositoryManager.Company.GetCompany(companyId, compTrackChanges);
+            var company = await _repositoryManager.Company.GetCompanyAsync(companyId, compTrackChanges);
             if (company is null)
                 throw new CompanyNotFoundException(companyId);
-            var employeeEntity = _repositoryManager.Employee.GetEmployee(companyId, id, empTrackChanges);
+
+            var employeeEntity = await _repositoryManager.Employee.GetEmployeeAsync(companyId, id, empTrackChanges);
             if (employeeEntity is null)
                 throw new EmployeeNotFoundException(id);
 
             _mapper.Map(employeeForUpdate, employeeEntity);
-            _repositoryManager.Save();
+             await _repositoryManager.SaveAsync();
         }
-        public (EmployeeForUpdateDto employeeToPatch, Employee employeeEntity)GetEmployeeForPatch(Guid companyId, Guid id, bool compTrackChanges, bool empTrackChanges)
+        public async Task<(EmployeeForUpdateDto employeeToPatch, Employee employeeEntity)> GetEmployeeForPatchAsync(Guid companyId, Guid id, bool compTrackChanges, bool empTrackChanges)
         {
-            var company = _repositoryManager.Company.GetCompany(companyId, compTrackChanges);
+            var company =  await _repositoryManager.Company.GetCompanyAsync(companyId, compTrackChanges);
             if (company is null)
                 throw new CompanyNotFoundException(companyId);
 
-            var employeeEntity = _repositoryManager.Employee.GetEmployee(companyId, id,
-           empTrackChanges);
+            var employeeEntity = await _repositoryManager.Employee.GetEmployeeAsync(companyId, id,empTrackChanges);
             if (employeeEntity is null)
                 throw new EmployeeNotFoundException(companyId);
 
@@ -125,9 +125,9 @@ namespace Service
         employeeEntity)
         {
             _mapper.Map(employeeToPatch, employeeEntity);
-            _repositoryManager.Save();
+             _repositoryManager.Save();
         }
 
-
+     
     }
 }

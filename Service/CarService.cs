@@ -16,6 +16,7 @@ namespace Service
         private readonly IRepositoryManager _repository;
         private readonly ILoggerManager _logger;
         private readonly IMapper _mapper;
+
         public CarService(IRepositoryManager repository, ILoggerManager logger, IMapper mapper)
         {
 
@@ -34,9 +35,9 @@ namespace Service
         {
             var carcreated = _mapper.Map<Car>(car);
             _repository.Car.CreateCar(carcreated);
+            var carEntity = _mapper.Map<CarDto>(carcreated);
 
-            var cartoreturn=_mapper.Map<CarDto>(carcreated);
-            return cartoreturn;
+            return carEntity;
         }
     }
 }

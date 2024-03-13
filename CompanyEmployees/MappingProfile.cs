@@ -19,7 +19,7 @@ namespace CompanyEmployees
             CreateMap<EmployeeForUpdateDto, Employee>().ReverseMap();
             CreateMap<CompanyForUpdateDto,Company>();
 
-           CreateMap<CreateCarDto,Car>();
+           CreateMap<CreateCarDto,Car>().ReverseMap(); 
            CreateMap<CarDto, Car>().ReverseMap();
 
         }

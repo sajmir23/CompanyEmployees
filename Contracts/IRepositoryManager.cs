@@ -16,6 +16,7 @@ namespace Contracts
         IReviewRepository Review { get; }
         IHouseRepository House { get; }
         ICarRepository Car { get; }
+        Task SaveAsync();
         void Save();
     }
 }

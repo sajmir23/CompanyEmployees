@@ -28,11 +28,7 @@ namespace CompanyEmployees.Presentation.Controllers
         {
           
             var car=_service.CarService.CreateCar(createCarDto);
-
-
             return CreatedAtRoute(new { id = car.Id }, car);
-            
-
         }
     }
 }

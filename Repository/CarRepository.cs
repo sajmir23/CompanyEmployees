@@ -18,7 +18,7 @@ namespace Repository
          .OrderBy(c => c.Modeli)
          .ToList();
 
-        public void CreateCar(Car carnm) => Create(carnm);
+        public void CreateCar(Car car) => Create(car);
         
     }
 
