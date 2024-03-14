@@ -77,7 +77,7 @@ namespace Service
 
          }
 
-        public async Task DeleteCompanyAsync(Guid companyId, Guid id, bool trackChanges)
+        public async Task DeleteEmployeeForCompanyAsync(Guid companyId, Guid id, bool trackChanges)
         {
             var company = await _repositoryManager.Company.GetCompanyAsync(companyId,trackChanges);
             if(company is null)
@@ -93,7 +93,7 @@ namespace Service
             await _repositoryManager.SaveAsync();
         }
 
-        public async Task UpdateEmployeeForCompany(Guid companyId, Guid id, EmployeeForUpdateDto employeeForUpdate,bool compTrackChanges, bool empTrackChanges)
+        public async Task UpdateEmployeeForCompanyAsync(Guid companyId, Guid id, EmployeeForUpdateDto employeeForUpdate,bool compTrackChanges, bool empTrackChanges)
         {
             var company = await _repositoryManager.Company.GetCompanyAsync(companyId, compTrackChanges);
             if (company is null)
@@ -106,6 +106,7 @@ namespace Service
             _mapper.Map(employeeForUpdate, employeeEntity);
              await _repositoryManager.SaveAsync();
         }
+
         public async Task<(EmployeeForUpdateDto employeeToPatch, Employee employeeEntity)> GetEmployeeForPatchAsync(Guid companyId, Guid id, bool compTrackChanges, bool empTrackChanges)
         {
             var company =  await _repositoryManager.Company.GetCompanyAsync(companyId, compTrackChanges);
@@ -128,14 +129,5 @@ namespace Service
              _repositoryManager.Save();
         }
 
-        public Task DeleteEmployeeForCompanyAsync(Guid companyId, Guid id, bool trackChanges)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task UpdateEmployeeForCompanyAsync(Guid companyId, Guid id, EmployeeForUpdateDto employeeForUpdate, bool compTrackChanges, bool empTrackChanges)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
