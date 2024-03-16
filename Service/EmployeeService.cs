@@ -5,6 +5,7 @@ using Entities.Models;
 using Microsoft.Identity.Client;
 using Service.Contracts;
 using Shared.DataTransferObjects;
+using Shared.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,16 +27,32 @@ namespace Service
             _mapper = mapper;
         }
         
-        public async Task<IEnumerable<EmployeeDto>> GetEmployeesAsync(Guid companyId, bool trackChanges)
+        private async Task CheckIfCompanyExists(Guid companyId, bool trackChanges)
         {
-            var company = await _repositoryManager.Company.GetCompanyAsync(companyId, trackChanges);
-
+            var company = await _repositoryManager.Company.GetCompanyAsync(companyId,
+           trackChanges);
             if (company is null)
-            {
-                throw new CompanyNotFoundException(companyId); 
-            }
+                throw new CompanyNotFoundException(companyId);
+        }
 
-            var employees = await _repositoryManager.Employee.GetEmployeesAsync(companyId, trackChanges);
+        private async Task<Employee> GetEmployeeForCompanyAndCheckIfItExists
+         (Guid companyId, Guid id, bool trackChanges)
+        {
+            var employeeDb = await _repositoryManager.Employee.GetEmployeeAsync(companyId, id,
+           trackChanges);
+            if (employeeDb is null)
+                throw new EmployeeNotFoundException(id);
+
+            return employeeDb;
+        }
+        
+
+
+        public async Task<IEnumerable<EmployeeDto>> GetEmployeesAsync(Guid companyId, EmployeeParameters employeeParameters,bool trackChanges)
+        {
+            await CheckIfCompanyExists(companyId, trackChanges);
+
+            var employees = await _repositoryManager.Employee.GetEmployeesAsync(companyId,employeeParameters,trackChanges);
 
             var employeesDto = _mapper.Map<IEnumerable<EmployeeDto>>(employees);
 
@@ -69,7 +86,6 @@ namespace Service
             _repositoryManager.Employee.CreateEmployeeForCompany(companyId,employeeEntity);
 
             await _repositoryManager.SaveAsync();
-
 
             var employeeToReturn = _mapper.Map<EmployeeDto>(employeeEntity);
 

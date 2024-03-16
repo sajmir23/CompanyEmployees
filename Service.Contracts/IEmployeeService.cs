@@ -1,5 +1,6 @@
 ﻿using Entities.Models;
 using Shared.DataTransferObjects;
+using Shared.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace Service.Contracts
 {
     public interface IEmployeeService
     {
-        Task<IEnumerable<EmployeeDto>> GetEmployeesAsync(Guid companyId, bool trackchanges);
+        Task<IEnumerable<EmployeeDto>> GetEmployeesAsync(Guid companyId, EmployeeParameters employeeParameters,bool trackchanges);
         Task<EmployeeDto> GetEmployeeAsync(Guid companyId, Guid id, bool trackChanges);
         Task<EmployeeDto> CreateEmployeeForCompanyAsync(Guid companyId,EmployeeForCreation employeeForCreation,bool trackChanges);
         Task DeleteEmployeeForCompanyAsync(Guid companyId,Guid id,bool trackChanges);

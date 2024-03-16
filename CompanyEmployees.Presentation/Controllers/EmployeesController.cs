@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.JsonPatch;
+using Shared.RequestFeatures;
+using Shared.DTO;
 
 namespace CompanyEmployees.Presentation.Controllers
 {
@@ -23,9 +25,9 @@ namespace CompanyEmployees.Presentation.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetEmployeesForCompany(Guid companyId)
+        public async Task<IActionResult> GetEmployeesForCompany(Guid companyId, [FromQuery] EmployeeParameters employeeParameters)
         {
-            var employees =  await _serviceManager.EmployeeService.GetEmployeesAsync(companyId, false);
+            var employees =  await _serviceManager.EmployeeService.GetEmployeesAsync(companyId, employeeParameters, false);
             return Ok(employees);
         }
 
