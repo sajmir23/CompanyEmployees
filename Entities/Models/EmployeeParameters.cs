@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Shared.RequestFeatures
+namespace Entities.Models
 {
-    public abstract class RequestParameters
+    public class EmployeeParameters
     {
         const int maxPageSize = 50;   //pra kthen 50 rreshta per faqe
         public int PageNumber { get; set; } = 1;

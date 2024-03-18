@@ -5,7 +5,6 @@ using Entities.Models;
 using Microsoft.Identity.Client;
 using Service.Contracts;
 using Shared.DataTransferObjects;
-using Shared.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
