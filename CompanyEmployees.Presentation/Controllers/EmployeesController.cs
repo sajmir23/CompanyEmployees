@@ -8,7 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.JsonPatch;
-using Entities.Models;
+using Shared;
+using System.Text.Json;
 
 namespace CompanyEmployees.Presentation.Controllers
 {
@@ -26,8 +27,14 @@ namespace CompanyEmployees.Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult> GetEmployeesForCompany(Guid companyId, [FromQuery] EmployeeParameters employeeParameters)
         {
-            var employees =  await _serviceManager.EmployeeService.GetEmployeesAsync(companyId, employeeParameters, false);
-            return Ok(employees);
+            var pagedResult = await _serviceManager.EmployeeService.GetEmployeesAsync(companyId, employeeParameters, trackchanges: false);
+            Response.Headers.Add("X-Pagination",
+            JsonSerializer.Serialize(pagedResult.metaData));
+            return Ok(pagedResult.employees);
+
+
+            //var employees =  await _serviceManager.EmployeeService.GetEmployeesAsync(companyId, employeeParameters, false);
+            //return Ok(employees);
         }
 
         [HttpGet("{id:guid}", Name = "GetEmployeeForCompany")]

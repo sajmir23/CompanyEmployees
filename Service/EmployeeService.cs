@@ -4,6 +4,7 @@ using Entities.Exceptions;
 using Entities.Models;
 using Microsoft.Identity.Client;
 using Service.Contracts;
+using Shared;
 using Shared.DataTransferObjects;
 using System;
 using System.Collections.Generic;
@@ -37,25 +38,25 @@ namespace Service
         private async Task<Employee> GetEmployeeForCompanyAndCheckIfItExists
          (Guid companyId, Guid id, bool trackChanges)
         {
-            var employeeDb = await _repositoryManager.Employee.GetEmployeeAsync(companyId, id,
-           trackChanges);
+            var employeeDb = await _repositoryManager.Employee.GetEmployeeAsync(companyId, id,trackChanges);
             if (employeeDb is null)
                 throw new EmployeeNotFoundException(id);
 
             return employeeDb;
         }
         
-
-
-        public async Task<IEnumerable<EmployeeDto>> GetEmployeesAsync(Guid companyId, EmployeeParameters employeeParameters,bool trackChanges)
+        public async Task<(IEnumerable<EmployeeDto> employees, MetaData metaData)> GetEmployeesAsync(Guid companyId, EmployeeParameters employeeParameters,bool trackChanges)
         {
+            if (!employeeParameters.ValidAgeRange) 
+            throw new MaxAgeRangeBadRequestException(); 
+
             await CheckIfCompanyExists(companyId, trackChanges);
 
-            var employees = await _repositoryManager.Employee.GetEmployeesAsync(companyId,employeeParameters,trackChanges);
+            var employeesWithMetaData = await _repositoryManager.Employee.GetEmployeesAsync(companyId,employeeParameters,trackChanges);
 
-            var employeesDto = _mapper.Map<IEnumerable<EmployeeDto>>(employees);
+            var employeesDto = _mapper.Map<IEnumerable<EmployeeDto>>(employeesWithMetaData);
 
-            return employeesDto;
+            return (employees:employeesDto,metaData:employeesWithMetaData.MetaData);
 
         }
         
