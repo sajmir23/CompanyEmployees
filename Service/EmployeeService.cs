@@ -25,6 +25,7 @@ namespace Service
             _loggerManager = logger;
             _repositoryManager = repository;
             _mapper = mapper;
+            
         }
         
         private async Task CheckIfCompanyExists(Guid companyId, bool trackChanges)
