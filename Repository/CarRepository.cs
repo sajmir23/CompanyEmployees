@@ -18,8 +18,13 @@ namespace Repository
          .OrderBy(c => c.Modeli)
          .ToList();
 
+        public Car GetCar(Guid id, bool trackChanges) =>
+        FindByCondition(c=>c.Id.Equals(id),trackChanges) 
+        .FirstOrDefault();
+
         public void CreateCar(Car car) => Create(car);
-        
+
+        public void DeleteCar(Car car) => Delete(car);
     }
 
      

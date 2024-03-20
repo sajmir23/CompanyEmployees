@@ -10,8 +10,9 @@ namespace Contracts
     public interface ICarRepository
     {
         IEnumerable<Car> GetAllCars(bool trackChanges);
+        Car GetCar(Guid Id, bool trackChanges);
         void CreateCar(Car car);
         //void UpdateCar(Car car);
-        //void DeleteCar(Car car);    
+        void DeleteCar(Car car);    
     }
 }

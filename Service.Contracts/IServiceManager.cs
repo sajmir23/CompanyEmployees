@@ -17,7 +17,7 @@ namespace Service.Contracts
 
         IHouseService HouseService { get; }
 
-        ICarService CarService { get; }
+        ICarService CarService  { get; }
 
     }
 }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Contracts;
+using Entities.Exceptions;
 using Entities.Models;
 using Service.Contracts;
 using Shared.DataTransferObjects;
@@ -31,6 +32,14 @@ namespace Service
             return cardto;
 
        }
+        public CarDto GetCar(Guid id,bool trackChanges) 
+        {
+            var car =_repository.Car.GetCar(id, trackChanges);
+            var cardto =_mapper.Map<CarDto>(car);
+            return cardto;
+
+        }
+
         public CarDto CreateCar(CreateCarDto car) 
         {
             var carcreated = _mapper.Map<Car>(car);
@@ -40,5 +49,20 @@ namespace Service
 
             return carEntity;
         }
+        public void DeleteCar(Guid Id, bool trackChanges)
+        {
+            var car =_repository.Car.GetCar(Id, trackChanges);
+            if(car is null)
+            {
+                throw new CarNotFoundException(Id);
+            }
+            _repository.Car.DeleteCar(car);
+            _repository.Save();
+
+
+        }
+
+
+
     }
 }

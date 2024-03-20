@@ -26,6 +26,7 @@ namespace CompanyEmployees.Presentation.Controllers
         }
 
         [HttpGet("{id:guid}", Name = "CompanyById")]
+        [ResponseCache(Duration =60)]
         public async Task<IActionResult> GetCompany(Guid Id)
         {
             var company = await _service.CompanyService.GetCompanyAsync(Id, trackChanges: false);
@@ -74,6 +75,15 @@ namespace CompanyEmployees.Presentation.Controllers
             await _service.CompanyService.UpdateCompanyAsync(id, company, trackChanges: true);
 
             return NoContent();
+        }
+
+        [HttpOptions]
+        public IActionResult GetCompaniesOptions()
+        {
+            Response.Headers.Add("Allow", "GET,OPTIONS,POST,PUT,DELETE");
+
+            return Ok();
+
         }
 
 
