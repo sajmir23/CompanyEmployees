@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CompanyEmployees.Presentation.Controllers
 {
-    [Route("api/car/{carId}")]
+    [Route("api/car")]
     [ApiController]
     public class CarController:ControllerBase
     {
@@ -38,11 +38,11 @@ namespace CompanyEmployees.Presentation.Controllers
             return CreatedAtRoute(new { id = car.Id }, car);
         }
         
-        [HttpDelete]
-        public IActionResult DeleteCar(Guid id)
+        [HttpDelete("{id:int}")]
+        public IActionResult DeleteCar(int id)
         {
             _service.CarService.DeleteCar(id,trackChanges:false);
-            return NoContent(); 
+            return NoContent();
         }
         
     }

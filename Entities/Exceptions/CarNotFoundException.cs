@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Entities.Exceptions
 {
-    public sealed class CarNotFoundException:NotFoundException
+    public sealed class CarNotFoundException : NotFoundException
     {
-        public CarNotFoundException(Guid Id) : base($"Car with id: {Id} doesn;t exist in the database.")
+        public CarNotFoundException(int Id) : base($"Car with id: {Id} doesn;t exist in the database.")
         { }
     }
 }

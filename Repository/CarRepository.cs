@@ -18,7 +18,7 @@ namespace Repository
          .OrderBy(c => c.Modeli)
          .ToList();
 
-        public Car GetCar(Guid id, bool trackChanges) =>
+        public Car GetCar(int id, bool trackChanges) =>
         FindByCondition(c=>c.Id.Equals(id),trackChanges) 
         .FirstOrDefault();
 

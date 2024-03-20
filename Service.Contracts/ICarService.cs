@@ -14,7 +14,7 @@ namespace Service.Contracts
         IEnumerable<CarDto> GetAllCars(bool trackChanges);
         CarDto GetCar(Guid Id,bool trackChanges);
         CarDto CreateCar(CreateCarDto car);
-        void DeleteCar(Guid Id,bool trackChanges);
+        void DeleteCar(int Id,bool trackChanges);
         
 
     }
