@@ -18488,3 +18488,28 @@
 2024-03-22 13:40:48.4804 Trace FileTarget(Name=logfile) has 2 layouts
 2024-03-22 13:40:48.4804 Trace FileTarget(Name=logfile): Using appenderFactory: NLog.Internal.FileAppenders.SingleProcessFileAppender+Factory
 2024-03-22 13:40:48.4956 Info Configuration initialized.
+2024-03-22 13:43:21.7291 Info AppDomain Shutting down. LogFactory closing...
+2024-03-22 13:43:21.7514 Debug Stop watching file-filter 'nlog.config' in directory: C:\Users\User\OneDrive\Documents\Companyemployees\CompanyEmployees
+2024-03-22 13:43:21.7643 Trace Flushing all 1 targets...
+2024-03-22 13:43:21.7643 Trace ForEachItemInParallel() 1 items
+2024-03-22 13:43:21.7643 Trace FileTarget(Name=logfile): FlushAsync
+2024-03-22 13:43:21.7816 Trace Continuation invoked: 
+2024-03-22 13:43:21.7816 Trace Parallel task completed. 0 items remaining
+2024-03-22 13:43:21.7816 Debug Flush completed
+2024-03-22 13:43:21.7816 Trace FileTarget(Name=logfile): FlushAsync Done
+2024-03-22 13:43:21.7816 Debug Closing logging configuration...
+2024-03-22 13:43:21.7816 Trace Closing FileTarget(Name=logfile)
+2024-03-22 13:43:21.7816 Debug FileTarget(Name=logfile): Closing...
+2024-03-22 13:43:21.7918 Debug FileTarget(Name=logfile): Closed.
+2024-03-22 13:43:21.7918 Trace Closing .\logs\${shortdate}_logfile.txt
+2024-03-22 13:43:21.7918 Trace Closing Layout Renderer: ${literal}
+2024-03-22 13:43:21.7918 Trace Closing Layout Renderer: ${shortdate}
+2024-03-22 13:43:21.7918 Trace Closing Layout Renderer: ${literal}
+2024-03-22 13:43:21.7918 Trace Closing ${longdate} ${level:uppercase=true} ${message}
+2024-03-22 13:43:21.7918 Trace Closing Layout Renderer: ${longdate}
+2024-03-22 13:43:21.7918 Trace Closing Layout Renderer: ${literal}
+2024-03-22 13:43:21.7918 Trace Closing Layout Renderer: ${level}
+2024-03-22 13:43:21.7918 Trace Closing Layout Renderer: ${literal}
+2024-03-22 13:43:21.7918 Trace Closing Layout Renderer: ${message}
+2024-03-22 13:43:21.7918 Debug Finished closing logging configuration.
+2024-03-22 13:43:21.7918 Info LogFactory has been closed.
