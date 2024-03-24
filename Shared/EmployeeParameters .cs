@@ -9,9 +9,9 @@ namespace Shared
     public class EmployeeParameters : RequestParameters
     {
         //Sorting
-        public EmployeeParameters() => OrderBy = "name"; //kjo eshte nje query string 
-                                                          // query eshte Orderby
-                                                          // dhe name eshte string-u  
+        public EmployeeParameters() => OrderBy = "Name"; 
+        
+
         //Filtrimi
         public uint MinAge { get; set; }
         public uint MaxAge { get; set; } = int.MaxValue;

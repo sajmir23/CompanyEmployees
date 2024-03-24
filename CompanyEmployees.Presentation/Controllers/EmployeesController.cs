@@ -1,4 +1,4 @@
-﻿  using Microsoft.AspNetCore.JsonPatch;
+﻿using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Service.Contracts;
 using Shared.DataTransferObjects;
@@ -29,8 +29,7 @@ namespace CompanyEmployees.Presentation.Controllers
         public async Task<IActionResult> GetEmployeesForCompany(Guid companyId, [FromQuery] EmployeeParameters employeeParameters)
         {
             var pagedResult = await _serviceManager.EmployeeService.GetEmployeesAsync(companyId, employeeParameters, trackchanges: false);
-            Response.Headers.Add("X-Pagination",
-            JsonSerializer.Serialize(pagedResult.metaData));
+            Response.Headers.Add("X-Pagination",JsonSerializer.Serialize(pagedResult.metaData));
             return Ok(pagedResult.employees);
 
 
