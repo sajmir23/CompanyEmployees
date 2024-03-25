@@ -13,7 +13,7 @@ namespace CompanyEmployees.Presentation.Controllers
 {
     [Route("api/companies")]
     [ApiController]
-    //[ResponseCache(CacheProfileName = "120SecondsDuration")]
+    [ResponseCache(CacheProfileName = "120SecondsDuration")]
     public class CompaniesController : ControllerBase
     {
         private readonly IServiceManager _service;
