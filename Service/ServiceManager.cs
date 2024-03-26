@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
 using Contracts;
+using Entities.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
 using Service.Contracts;
 using Shared.DataTransferObjects;
 using System;
@@ -18,15 +21,18 @@ namespace Service
         private readonly Lazy<IReviewService> _reviewService;
         private readonly Lazy<IHouseService> _houseService;
         private readonly Lazy<ICarService> _carService;
+        private readonly Lazy<IAuthenticationService> _authenticationService;
 
 
-        public ServiceManager(IRepositoryManager repositoryManager, ILoggerManager logger, IMapper mapper)
+        public ServiceManager(IRepositoryManager repositoryManager, ILoggerManager logger,
+            IMapper mapper,UserManager<User> userManager,IConfiguration configuration)
         {
             _companyService = new Lazy<ICompanyService>(() => new CompanyService(repositoryManager, logger, mapper));
             _employeeService = new Lazy<IEmployeeService>(() => new EmployeeService(repositoryManager, logger, mapper));
             _reviewService = new Lazy<IReviewService>(() => new ReviewService(repositoryManager, logger, mapper));
             _houseService = new Lazy<IHouseService>(() => new HouseService(repositoryManager, logger, mapper));
             _carService = new Lazy<ICarService>(() => new CarService(repositoryManager, logger, mapper));
+            _authenticationService = new Lazy<IAuthenticationService>(() => new AuthenticationService(logger, mapper, userManager, configuration));
         }
 
 
@@ -36,6 +42,7 @@ namespace Service
         public IReviewService ReviewService => _reviewService.Value;
         public IHouseService HouseService => _houseService.Value;
         public ICarService CarService => _carService.Value;
+        public IAuthenticationService AuthenticationService =>_authenticationService.Value;
     }
 
     

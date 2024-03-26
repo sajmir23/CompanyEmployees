@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Entities.Models;
 using Shared.DataTransferObjects;
+using Shared.DTO;
 
 namespace CompanyEmployees
 {
@@ -21,6 +22,9 @@ namespace CompanyEmployees
 
            CreateMap<CreateCarDto,Car>().ReverseMap(); 
            CreateMap<CarDto, Car>().ReverseMap();
+
+            CreateMap<UserForRegistrationDto, User>();
+
 
         }
     }

@@ -65,7 +65,7 @@ namespace CompanyEmployees.Extensions
 
             {
               Endpoint = "*",//per cdo endpoint
-              Limit = 3,     //lejohet 3 request
+              Limit = 30,     //lejohet 30 request
               Period = "5m"  //brenda 5 min te vijne te API
             }
 

@@ -19,5 +19,7 @@ namespace Service.Contracts
 
         ICarService CarService  { get; }
 
+        IAuthenticationService AuthenticationService { get; }
+
     }
 }
