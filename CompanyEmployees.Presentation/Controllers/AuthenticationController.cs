@@ -43,7 +43,7 @@ namespace CompanyEmployees.Presentation.Controllers
 
             return Ok(new
             {
-                Token = await _service.AuthenticationService.CreateToken()
+                Token = await _service.AuthenticationService.CreateToken(true)
             });
         }
 
