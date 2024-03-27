@@ -74,7 +74,8 @@ namespace CompanyEmployees.Extensions
             }
 
             };
-            services.Configure<IpRateLimitOptions>(opt => {
+            services.Configure<IpRateLimitOptions>(opt =>
+            {
                 opt.GeneralRules =
             rateLimitRules;
             });
@@ -96,6 +97,7 @@ namespace CompanyEmployees.Extensions
                 o.Password.RequiredLength = 10;
                 o.User.RequireUniqueEmail = true;
             })
+                .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<RepositoryContext>()
             .AddDefaultTokenProviders();
         }
@@ -121,7 +123,7 @@ namespace CompanyEmployees.Extensions
                     ValidIssuer = jwtConfiguration.ValidIssuer,
                     ValidAudience = jwtConfiguration.ValidAudience,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfiguration.SecretKey))
-             
+
                 };
             });
         }

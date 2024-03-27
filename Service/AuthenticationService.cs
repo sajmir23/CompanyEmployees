@@ -81,8 +81,8 @@ namespace Service
                 _user.RefreshTokenExpiryTime = DateTime.Now.AddDays(7);
 
             await _userManager.UpdateAsync(_user);
-
-            var accessToken = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+            var tokenAuth = new JwtSecurityTokenHandler();
+            var accessToken = tokenAuth.WriteToken(tokenOptions);
             return new TokenDto(accessToken, refreshToken);
         }
 
