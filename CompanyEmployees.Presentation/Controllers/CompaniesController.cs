@@ -21,7 +21,7 @@ namespace CompanyEmployees.Presentation.Controllers
         public CompaniesController(IServiceManager services) => _service = services;
 
 
-        [HttpGet(Name = "Get companies")]
+        [HttpGet(Name = "GetCompanies")]
         [Authorize(Roles = "Manager")]
         public async Task<IActionResult> GetCompanies()
         {
