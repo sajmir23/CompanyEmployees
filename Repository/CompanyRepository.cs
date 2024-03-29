@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Repository
 {
-    public class CompanyRepository:RepositoryBase<Company>,ICompanyRepository
+    public class CompanyRepository : RepositoryBase<Company>, ICompanyRepository
     {
         public CompanyRepository(RepositoryContext repositoryContext) : base(repositoryContext) { }
 
@@ -17,6 +17,8 @@ namespace Repository
          await FindAll(trackChanges)
             .OrderBy(c => c.Name)
             .ToListAsync();
+
+
 
         public async Task<Company> GetCompanyAsync(Guid companyId, bool trackChanges) =>
           await FindByCondition(c => c.Id.Equals(companyId), trackChanges)
@@ -29,8 +31,17 @@ namespace Repository
         .ToListAsync();
 
         public void DeleteCompany(Company company) => Delete(company);
+
+
+
+
+
+        public IEnumerable<Company> GetAllCompanies(bool trackChanges) =>
+ FindAll(trackChanges)
+   .OrderBy(c => c.Name)
+   .ToList();
     }
-   
- 
+
+
 }
 

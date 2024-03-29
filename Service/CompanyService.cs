@@ -2,6 +2,7 @@
 using Contracts;
 using Entities.Exceptions;
 using Entities.Models;
+using Entities.Responses;
 using Service.Contracts;
 using Shared.DataTransferObjects;
 using System;
@@ -36,6 +37,13 @@ namespace Service
             return company;
         }
 
+        public ApiBaseResponse GetAllCompanies(bool trackChanges)
+        {
+            var companies = _repository.Company.GetAllCompanies(trackChanges);
+            var companiesDto = _mapper.Map<IEnumerable<CompanyDto>>(companies);
+            return new ApiOkResponse<IEnumerable<CompanyDto>>(companiesDto);
+
+        }
 
         public async Task<IEnumerable<CompanyDto>> GetAllCompaniesAsync(bool trackChanges)
         {

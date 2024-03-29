@@ -17,6 +17,7 @@ namespace CompanyEmployees.Presentation.Controllers
         public AuthenticationController(IServiceManager service) => _service = service;
 
 
+
         [HttpPost]
         //[ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> RegisterUser([FromBody] UserForRegistrationDto userForRegistration)

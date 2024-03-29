@@ -13,7 +13,7 @@ namespace Service.Contracts
         Task<IEnumerable<CompanyDto>> GetAllCompaniesAsync(bool trackChanges);
         Task<CompanyDto> GetCompanyAsync(Guid companyId, bool trackChanges);
 
-        //ApiBaseResponse GetAllCompanies(bool trackChanges);
+        ApiBaseResponse GetAllCompanies(bool trackChanges);
         //ApiBaseResponse GetCompany(Guid companyId, bool trackChanges);
 
 
@@ -26,6 +26,7 @@ namespace Service.Contracts
 
         Task<IEnumerable<CompanyDto>> GetByIdsAsync(IEnumerable<Guid> ids, bool trackChanges);
         Task<(IEnumerable<CompanyDto> companies, string ids)> CreateCompanyCollectionAsync(IEnumerable<CompanyForCreationDto> companyCollection);
+
 
     }
 }

@@ -1,4 +1,5 @@
 ﻿using CompanyEmployees.Presentation.ModelBinders;
+using Entities.Responses;
 using Marvin.Cache.Headers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -17,7 +18,7 @@ namespace CompanyEmployees.Presentation.Controllers
     [ResponseCache(CacheProfileName = "120SecondsDuration")]
     [ApiExplorerSettings(GroupName = "v1")]
 
-    public class CompaniesController : ControllerBase
+    public class CompaniesController : ApiControllerBase
     {
         private readonly IServiceManager _service;
         public CompaniesController(IServiceManager services) => _service = services;
@@ -106,6 +107,16 @@ namespace CompanyEmployees.Presentation.Controllers
 
         }
 
+
+        [HttpGet("test")]
+        public IActionResult GetCompanies2()
+        {
+            var baseResult = _service.CompanyService.GetAllCompanies(trackChanges:
+            false);
+            var companies =
+            ((ApiOkResponse<IEnumerable<CompanyDto>>)baseResult).Result;
+            return Ok(companies);
+        }
 
 
     }
