@@ -18,7 +18,7 @@ namespace CompanyEmployees.Presentation.Controllers
     [ResponseCache(CacheProfileName = "120SecondsDuration")]
     [ApiExplorerSettings(GroupName = "v1")]
 
-    public class CompaniesController : ApiControllerBase
+    public class CompaniesController : ControllerBase
     {
         private readonly IServiceManager _service;
         public CompaniesController(IServiceManager services) => _service = services;
@@ -108,15 +108,7 @@ namespace CompanyEmployees.Presentation.Controllers
         }
 
 
-        [HttpGet("test")]
-        public IActionResult GetCompanies2()
-        {
-            var baseResult = _service.CompanyService.GetAllCompanies(trackChanges:
-            false);
-            var companies =
-            ((ApiOkResponse<IEnumerable<CompanyDto>>)baseResult).Result;
-            return Ok(companies);
-        }
+        
 
 
     }

@@ -80,6 +80,7 @@ if (app.Environment.IsProduction())
     app.UseHsts();
 
 app.UseHttpsRedirection();
+
 app.UseSwagger();
 app.UseSwaggerUI(s =>
 {

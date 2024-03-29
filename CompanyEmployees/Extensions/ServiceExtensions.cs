@@ -2,6 +2,7 @@
 using Contracts;
 using Entities.Configuration;
 using Entities.Models;
+using Entities.Responses;
 using LoggerService;
 using Marvin.Cache.Headers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -150,7 +151,7 @@ namespace CompanyEmployees.Extensions
                     {
                         Name = "Saimir Kokoshi",
                         Email = "sajmir.kokoshi16@gmail.com",
-                        Url = new Uri("https://twitter.com/johndoe"),
+                        Url = new Uri("https://twitter.com/"),
                     },
                     License = new OpenApiLicense
                     {
@@ -200,5 +201,8 @@ namespace CompanyEmployees.Extensions
 
 
         }
+
+    
+
     }
 }
