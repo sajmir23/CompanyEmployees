@@ -19,12 +19,14 @@ namespace Service
         private readonly IRepositoryManager _repositoryManager;
         private readonly ILoggerManager _loggerManager;
         private readonly IMapper _mapper;
+        private readonly IDapperRepository _dapperRepository;
 
-        public EmployeeService(IRepositoryManager repository, ILoggerManager logger, IMapper mapper)
+        public EmployeeService(IRepositoryManager repository, ILoggerManager logger, IMapper mapper,IDapperRepository dapperRepository)
         {
             _loggerManager = logger;
             _repositoryManager = repository;
             _mapper = mapper;
+            _dapperRepository = dapperRepository;
             
         }
         
@@ -36,8 +38,7 @@ namespace Service
                 throw new CompanyNotFoundException(companyId);
         }
 
-        private async Task<Employee> GetEmployeeForCompanyAndCheckIfItExists
-         (Guid companyId, Guid id, bool trackChanges)
+        private async Task<Employee> GetEmployeeForCompanyAndCheckIfItExists(Guid companyId, Guid id, bool trackChanges)
         {
             var employeeDb = await _repositoryManager.Employee.GetEmployeeAsync(companyId, id,trackChanges);
             if (employeeDb is null)
@@ -63,13 +64,10 @@ namespace Service
         
         public async Task<EmployeeDto> GetEmployeeAsync(Guid companyId, Guid id, bool trackChanges)
         {
-            var company =await  _repositoryManager.Company.GetCompanyAsync(companyId, trackChanges);
-            if (company is null)
-                throw new CompanyNotFoundException(companyId);
-
-            var employeeDb = await _repositoryManager.Employee.GetEmployeeAsync(companyId, id, trackChanges);
-            if (employeeDb is null)
-                throw new EmployeeNotFoundException(id);
+            await CheckIfCompanyExists (companyId, trackChanges);
+      
+            var employeeDb = await GetEmployeeForCompanyAndCheckIfItExists (companyId, id, trackChanges);
+           
 
             var employee = _mapper.Map<EmployeeDto>(employeeDb);
             return employee;

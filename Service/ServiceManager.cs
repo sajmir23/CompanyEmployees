@@ -27,17 +27,15 @@ namespace Service
 
 
         public ServiceManager(IRepositoryManager repositoryManager, ILoggerManager logger,
-            IMapper mapper,UserManager<User> userManager,IConfiguration configuration)
+            IMapper mapper,UserManager<User> userManager,IConfiguration configuration,IDapperRepository dapperRepository)
         {
-            _companyService = new Lazy<ICompanyService>(() => new CompanyService(repositoryManager, logger, mapper));
-            _employeeService = new Lazy<IEmployeeService>(() => new EmployeeService(repositoryManager, logger, mapper));
+            _companyService = new Lazy<ICompanyService>(() => new CompanyService(repositoryManager, logger, mapper,dapperRepository));
+            _employeeService = new Lazy<IEmployeeService>(() => new EmployeeService(repositoryManager, logger, mapper,dapperRepository));
             _reviewService = new Lazy<IReviewService>(() => new ReviewService(repositoryManager, logger, mapper));
             _houseService = new Lazy<IHouseService>(() => new HouseService(repositoryManager, logger, mapper));
             _carService = new Lazy<ICarService>(() => new CarService(repositoryManager, logger, mapper));
             _authenticationService = new Lazy<IAuthenticationService>(() => new AuthenticationService(logger, mapper, userManager, configuration));
         }
-
-
 
         public ICompanyService CompanyService => _companyService.Value;
         public IEmployeeService EmployeeService => _employeeService.Value;

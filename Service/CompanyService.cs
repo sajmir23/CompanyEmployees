@@ -19,12 +19,14 @@ namespace Service
         private readonly IRepositoryManager _repository;
         private readonly ILoggerManager _logger;
         private readonly IMapper _mapper;
-        public CompanyService(IRepositoryManager repository, ILoggerManager logger, IMapper mapper)
+        private readonly IDapperRepository _dapperRepository;
+        public CompanyService(IRepositoryManager repository, ILoggerManager logger, IMapper mapper, IDapperRepository dapperRepository)
         {
 
             _repository = repository;
             _logger = logger;
             _mapper = mapper;
+            _dapperRepository = dapperRepository;
         }
 
 
@@ -72,6 +74,8 @@ namespace Service
             var companyToReturn = _mapper.Map<CompanyDto>(companyEntity);
             return companyToReturn;
         }
+
+
         public async Task<IEnumerable<CompanyDto>> GetByIdsAsync(IEnumerable<Guid> ids, bool trackChanges)
         {
             if (ids is null)
@@ -82,6 +86,8 @@ namespace Service
             var companiesToReturn = _mapper.Map<IEnumerable<CompanyDto>>(companyEntities);
             return companiesToReturn;
         }
+
+
         public async Task<(IEnumerable<CompanyDto> companies, string ids)> CreateCompanyCollectionAsync(IEnumerable<CompanyForCreationDto> companyCollection)
         {
             if (companyCollection is null)
@@ -102,6 +108,7 @@ namespace Service
 
             return (companies: companyCollectionToReturn, ids: ids);
         }
+
         public async Task DeleteCompanyAsync(Guid companyId, bool trackChanges)
         {
             var company = await GetCompanyAndCheckIfItExists(companyId, trackChanges);
@@ -117,12 +124,7 @@ namespace Service
         {
 
             var company = await GetCompanyAndCheckIfItExists(companyId,trackChanges);
-            if(company is null)
-            {
-                throw new CompanyNotFoundException(companyId);
-
-            }
-
+         
             _mapper.Map(companyForUpdateDto, company);
             await _repository.SaveAsync();
         }

@@ -165,12 +165,6 @@ namespace CompanyEmployees.Extensions
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 s.IncludeXmlComments(xmlPath);
 
-                s.SwaggerDoc("v2", new OpenApiInfo
-                {
-                    Title = "Saimir Kokoshi API",
-                    Version = "v2"
-                });
-
                 s.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     In = ParameterLocation.Header,
@@ -198,11 +192,14 @@ namespace CompanyEmployees.Extensions
              });
 
             });
-
-
         }
 
-    
+        public static void ConfigureDapperContext(this IServiceCollection services) =>
+        services.AddSingleton<DapperContext>();
+
+        public static void ConfigureDapperRepository(this IServiceCollection services) =>
+        services.AddScoped<IDapperRepository, DapperRepository>();
+
 
     }
 }

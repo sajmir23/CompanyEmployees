@@ -38,6 +38,8 @@ builder.Services.ConfigureIdentity();
 builder.Services.ConfigureJWT(builder.Configuration);
 builder.Services.AddJwtConfiguration(builder.Configuration);
 builder.Services.ConfigureSwagger();
+builder.Services.ConfigureDapperRepository();
+builder.Services.ConfigureDapperContext();
 
 
 
@@ -85,7 +87,6 @@ app.UseSwagger();
 app.UseSwaggerUI(s =>
 {
     s.SwaggerEndpoint("/swagger/v1/swagger.json", "Saimir Kokoshi API v1");
-    s.SwaggerEndpoint("/swagger/v2/swagger.json", "Saimir Kokoshi API v2");
 });
 
 
@@ -97,6 +98,7 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
 });
 app.UseIpRateLimiting();
 app.UseCors("CorsPolicy");
+
 app.UseResponseCaching();
 app.UseHttpCacheHeaders();
 
